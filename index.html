@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Đăng Ký Lấy Số Tự Động</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 font-sans min-h-screen flex flex-col justify-between">
+
+    <header class="bg-indigo-700 text-white text-center py-4 shadow-lg font-bold text-lg tracking-wide">
+        HỆ THỐNG ĐĂNG KÝ THĂM GẶP TỰ ĐỘNG
+    </header>
+
+    <main class="flex-grow flex items-center justify-center p-4">
+        <div class="bg-white p-6 rounded-2xl shadow-xl w-full max-w-lg border border-slate-200">
+            
+            <div id="status-msg" class="hidden p-3 rounded-xl text-xs font-semibold mb-4 text-center"></div>
+
+            <div id="form-screen">
+                <h2 class="text-xl font-bold text-slate-800 mb-1 text-center">Khai Báo Thông Tin</h2>
+                <p class="text-xs text-slate-500 text-center mb-5">Hệ thống tự động đối chiếu thông tin và cấp số thứ tự vào thăm gặp.</p>
+                
+                <div class="space-y-4">
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                        <p class="text-xs font-black text-indigo-700 uppercase tracking-wider mb-1">I. Thông tin người đi thăm</p>
+                        
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase">Họ và tên <span class="text-red-500">*</span></label>
+                                <input type="text" id="fullname" placeholder="Nhập chữ" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase">Mối quan hệ <span class="text-red-500">*</span></label>
+                                <select id="relationship" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium bg-white">
+                                    <option value="">-- Chọn quan hệ --</option>
+                                    <option value="Cha">Cha</option>
+                                    <option value="Mẹ">Mẹ</option>
+                                    <option value="Anh ruột">Anh ruột</option>
+                                    <option value="Chị ruột">Chị ruột</option>
+                                    <option value="Em ruột">Em ruột</option>
+                                    <option value="Con ruột">Con ruột</option>
+                                    <option value="Ông nội">Ông nội</option>
+                                    <option value="Bà nội">Bà nội</option>
+                                    <option value="Ông ngoại">Ông ngoại</option>
+                                    <option value="Bà ngoại">Bà ngoại</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase">Số CCCD (12 số) <span class="text-red-500">*</span></label>
+                                <input type="text" id="cccd" maxlength="12" placeholder="Nhập đúng 12 số" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase">Số điện thoại <span class="text-red-500">*</span></label>
+                                <input type="tel" id="phone" placeholder="Ví dụ: 0912345678" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                        <p class="text-xs font-black text-indigo-700 uppercase tracking-wider mb-1">II. Thông tin người muốn gặp</p>
+                        
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase">Họ và tên <span class="text-red-500">*</span></label>
+                                <input type="text" id="prisoner-name" placeholder="Chỉ nhập chữ" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase">Ngày tháng năm sinh <span class="text-red-500">*</span></label>
+                                <input type="date" id="prisoner-dob" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium bg-white">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase">Hộ khẩu thường trú <span class="text-red-500">*</span></label>
+                            <input type="text" id="prisoner-address" placeholder="Nhập chính xác theo hộ khẩu để đối chiếu" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase">Ngày hẹn gặp đợt này</label>
+                            <select id="visit-date" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-600 text-sm font-bold bg-slate-100 cursor-not-allowed">
+                                <option value="30/06/2026">30/06/2026 (Ngày Thăm Gặp Do Cán Bộ Quy Định)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button onclick="generateTicket()" id="btn-submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all text-center block text-sm">
+                        Xác Nhận & Kiểm Tra Hệ Thống
+                    </button>
+                </div>
+            </div>
+
+            <div id="ticket-screen" class="hidden">
+                <div class="text-center mb-4">
+                    <span class="bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full">Đăng ký thành công & Thông tin hợp lệ</span>
+                </div>
+
+                <div id="digital-ticket" class="border-2 border-indigo-600 rounded-2xl p-5 bg-gradient-to-b from-indigo-50 to-white shadow-inner relative">
+                    <div class="absolute left-0 right-0 top-28 border-t border-dashed border-slate-300"></div>
+                    
+                    <div class="text-center pb-4">
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Số Thứ Tự Vào Cổng</p>
+                        <h1 id="res-stt" class="text-5xl font-black text-indigo-700 mt-1 tracking-wider"></h1>
+                    </div>
+
+                    <div class="pt-4 space-y-2 text-xs text-slate-600 border-t border-indigo-100">
+                        <div><strong>Họ tên người thăm:</strong> <span id="res-name" class="text-slate-900 font-medium"></span></div>
+                        <div><strong>Mối quan hệ:</strong> <span id="res-rel" class="text-indigo-700 font-bold"></span></div>
+                        <div><strong>Số CCCD người thăm:</strong> <span id="res-cccd" class="text-slate-900"></span></div>
+                        <div><strong>Điện thoại:</strong> <span id="res-phone" class="text-slate-900"></span></div>
+                        <hr class="my-2 border-slate-200">
+                        <div><strong>Người muốn gặp:</strong> <span id="res-pris-name" class="text-slate-900 font-medium"></span></div>
+                        <div><strong>Ngày sinh:</strong> <span id="res-pris-dob" class="text-slate-900"></span></div>
+                        <div><strong>Ngày hẹn gặp:</strong> <span id="res-date" class="text-red-600 font-bold"></span></div>
+                        
+                        <div class="bg-white p-2 w-32 h-32 mx-auto border border-slate-200 shadow-sm rounded-xl mt-4 flex items-center justify-center">
+                            <img id="ticket-qr" src="" alt="QR" class="w-full h-full">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5 space-y-2.5">
+                    <button onclick="downloadTicketImage()" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-semibold py-2.5 px-4 rounded-xl text-sm flex items-center justify-center gap-2 shadow">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        Tải Ảnh Vé Về Điện Thoại
+                    </button>
+                    <button onclick="backToForm()" class="w-full text-center text-xs text-slate-400 mt-2 hover:underline block">Đăng ký lượt khác</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <canvas id="hidden-canvas" class="hidden"></canvas>
+
+    <footer class="bg-slate-800 text-slate-400 text-center py-3 text-xs">
+        Trại Tạm Giam Số 1 &copy; 2026
+    </footer>
+
+    <script>
+        // DÁN ĐOẠN LINK WEB APP TỪ APPS SCRIPT VÀO ĐÂY
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwKUBz8KY_-i2TUlBGUrdknufiIqa71pGC4cSJb5As8GxhzyzAXhJ8qLd4OOSdWzI991A/exec";
+
+        let ticketData = {};
+        const textOnlyRegex = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểิếệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ\s]+$/;
+
+        function showMessage(text, type = "error") {
+            const msgDiv = document.getElementById('status-msg');
+            msgDiv.innerText = text;
+            if (type === "error") {
+                msgDiv.className = "bg-red-100 border-l-4 border-red-500 text-red-700 p-3 rounded-xl text-xs font-semibold mb-4 text-center animate-pulse";
+            } else if (type === "warning") {
+                msgDiv.className = "bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-3 rounded-xl text-xs font-semibold mb-4 text-center";
+            } else {
+                msgDiv.className = "bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-3 rounded-xl text-xs font-semibold mb-4 text-center";
+            }
+            msgDiv.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function generateTicket() {
+            const name = document.getElementById('fullname').value.trim();
+            const relationship = document.getElementById('relationship').value;
+            const cccd = document.getElementById('cccd').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const prisonerName = document.getElementById('prisoner-name').value.trim();
+            const prisonerDobRaw = document.getElementById('prisoner-dob').value;
+            const prisonerAddress = document.getElementById('prisoner-address').value.trim();
+            const date = document.getElementById('visit-date').value;
+            
+            document.getElementById('status-msg').classList.add('hidden');
+
+            // 1. Kiểm tra trống dữ liệu
+            if (!name || !relationship || !cccd || !phone || !prisonerName || !prisonerDobRaw || !prisonerAddress) {
+                showMessage("⚠️ Vui lòng khai báo đầy đủ tất cả các trường thông tin có dấu (*)");
+                return;
+            }
+
+            // 2. Kiểm tra định dạng Họ tên người đi thăm
+            if (!textOnlyRegex.test(name) || name.length > 100) {
+                showMessage("⚠️ Họ tên người đi thăm phải là ký tự chữ và không vượt quá 100 ký tự!");
+                return;
+            }
+
+            // 3. Kiểm tra định dạng Họ tên người muốn gặp
+            if (!textOnlyRegex.test(prisonerName) || prisonerName.length > 100) {
+                showMessage("⚠️ Họ tên người muốn gặp phải là ký tự chữ và không vượt quá 100 ký tự!");
+                return;
+            }
+
+            // 4. Kiểm tra CCCD
+            if (!/^\d{12}$/.test(cccd)) {
+                showMessage("⚠️ Số CCCD người đi thăm không hợp lệ! Yêu cầu nhập đúng 12 số.");
+                return;
+            }
+
+            // 5. Kiểm tra Số điện thoại nhà mạng VN
+            if (!/^(03|05|07|08|09)\d{8}$/.test(phone.replace(/\s+/g, ''))) {
+                showMessage("⚠️ Số điện thoại không đúng định dạng nhà mạng Việt Nam!");
+                return;
+            }
+
+            // Đổi định dạng ngày sinh từ YYYY-MM-DD sang DD/MM/YYYY để khớp dữ liệu Sheets
+            const prisonerDob = prisonerDobRaw.split('-').reverse().join('/');
+
+            const btnSubmit = document.getElementById('btn-submit');
+            btnSubmit.disabled = true;
+            showMessage("⏳ Hệ thống kiểm tra dữ liệu của Trại Tạm Giam Số 1, vui lòng đợi...", "info");
+
+            const finalUrl = `${SCRIPT_URL}?name=${encodeURIComponent(name)}&cccd=${encodeURIComponent(cccd)}&phone=${encodeURIComponent(phone)}&relationship=${encodeURIComponent(relationship)}&prisonerName=${encodeURIComponent(prisonerName)}&prisonerDob=${encodeURIComponent(prisonerDob)}&prisonerAddress=${encodeURIComponent(prisonerAddress)}&date=${encodeURIComponent(date)}`;
+
+            fetch(finalUrl)
+            .then(response => response.json())
+            .then(data => {
+                btnSubmit.disabled = false;
+                if (data.result === "success") {
+                    document.getElementById('status-msg').classList.add('hidden');
+                    const finalSTT = data.stt;
+                    ticketData = { name, relationship, cccd, phone, prisonerName, prisonerDob, date, stt: finalSTT };
+
+                    document.getElementById('res-stt').innerText = String(finalSTT).padStart(3, '0'); 
+                    document.getElementById('res-name').innerText = name;
+                    document.getElementById('res-rel').innerText = relationship;
+                    document.getElementById('res-cccd').innerText = cccd;
+                    document.getElementById('res-phone').innerText = phone;
+                    document.getElementById('res-pris-name').innerText = prisonerName;
+                    document.getElementById('res-pris-dob').innerText = prisonerDob;
+                    document.getElementById('res-date').innerText = date;
+
+                    const qrText = `STT:${finalSTT}|CCCD:${cccd}|CONG_DANH_ANH:${prisonerName}|QUAN_HE:${relationship}`;
+                    document.getElementById('ticket-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrText)}`;
+
+                    document.getElementById('form-screen').classList.add('hidden');
+                    document.getElementById('ticket-screen').classList.remove('hidden');
+                } 
+                else if (data.result === "not_found") {
+                    showMessage("❌ Trại tạm giam số 1 không có người này!", "error");
+                } 
+                else if (data.result === "disciplined") {
+                    showMessage("⛔ Người này đang bị kỷ luật, chỉ được gửi quà, không được đăng ký số thứ tự thăm gặp!", "warning");
+                } 
+                else {
+                    showMessage("❌ Lỗi hệ thống máy chủ cấu hình: " + data.error, "error");
+                }
+            })
+            .catch(err => {
+                btnSubmit.disabled = false;
+                showMessage("❌ Lỗi đường truyền Internet kết nối tới Google Drive.", "error");
+                console.error(err);
+            });
+        }
+
+        function downloadTicketImage() {
+            const canvas = document.getElementById('hidden-canvas');
+            canvas.width = 420; canvas.height = 580;
+            const ctx = canvas.getContext('2d');
+
+            ctx.fillStyle = '#f8fafc'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#e0e7ff'; ctx.fillRect(0, 0, canvas.width, 120);
+            ctx.strokeStyle = '#4338ca'; ctx.lineWidth = 6; ctx.strokeRect(3, 3, canvas.width - 6, canvas.height - 6);
+
+            ctx.fillStyle = '#4338ca'; ctx.font = 'bold 14px Arial'; ctx.textAlign = 'center';
+            ctx.fillText('SỐ THỨ TỰ VÀO THĂM GẶP', 210, 40);
+            ctx.font = 'bold 50px Arial'; ctx.fillText(String(ticketData.stt).padStart(3, '0'), 210, 95);
+
+            ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 2; ctx.setLineDash([6, 6]);
+            ctx.beginPath(); ctx.moveTo(10, 135); ctx.lineTo(410, 135); ctx.stroke(); ctx.setLineDash([]);
+
+            ctx.fillStyle = '#334155'; ctx.font = 'bold 12px Arial'; ctx.textAlign = 'left';
+            let cY = 175;
+            ctx.fillText(`Họ tên người thăm: ${ticketData.name}`, 40, cY); cY += 28;
+            ctx.fillText(`Mối quan hệ: ${ticketData.relationship}`, 40, cY); cY += 28;
+            ctx.fillText(`Số CCCD: ${ticketData.cccd}`, 40, cY); cY += 28;
+            ctx.fillText(`Số điện thoại: ${ticketData.phone}`, 40, cY); cY += 28;
+            
+            ctx.strokeStyle = '#e2e8f0'; ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(40, cY); ctx.lineTo(380, cY); ctx.stroke(); cY += 20;
+            
+            ctx.fillText(`Người muốn gặp: ${ticketData.prisonerName}`, 40, cY); cY += 28;
+            ctx.fillText(`Ngày sinh: ${ticketData.prisonerDob}`, 40, cY); cY += 28;
+            ctx.fillStyle = '#dc2626'; ctx.fillText(`Ngày hẹn gặp: ${ticketData.date}`, 40, cY);
+
+            ctx.fillStyle = '#94a3b8'; ctx.font = 'italic 10px Arial'; ctx.textAlign = 'center';
+            ctx.fillText('Hệ thống Trại Tạm Giam Số 1 đã phê duyệt dữ liệu.', 210, 510);
+            ctx.fillText('Vui lòng trình ảnh vé này tại cổng gác.', 210, 530);
+
+            const img = canvas.toDataURL("image/png");
+            const dl = document.createElement('a'); dl.href = img;
+            dl.download = `STT_TRAITAMGIAM_${ticketData.stt}.png`;
+            document.body.appendChild(dl); dl.click(); document.body.removeChild(dl);
+        }
+
+        function backToForm() {
+            document.getElementById('fullname').value = "";
+            document.getElementById('cccd').value = "";
+            document.getElementById('phone').value = "";
+            document.getElementById('prisoner-name').value = "";
+            document.getElementById('prisoner-dob').value = "";
+            document.getElementById('prisoner-address').value = "";
+            document.getElementById('relationship').value = "";
+            document.getElementById('status-msg').classList.add('hidden');
+            document.getElementById('form-screen').classList.remove('hidden');
+            document.getElementById('ticket-screen').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
