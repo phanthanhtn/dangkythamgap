@@ -17,6 +17,7 @@
             
             <div id="status-msg" class="hidden p-3 rounded-xl text-xs font-semibold mb-4 text-center"></div>
 
+            <!-- MÀN HÌNH QUY ĐỊNH VỀ THĂM GẶP -->
             <div id="regulations-screen" class="hidden">
                 <h2 class="text-xl font-bold text-slate-800 mb-2 text-center text-indigo-700">Quy Định Thăm Gặp Can Phạm Nhân</h2>
                 <p class="text-xs text-slate-500 text-center mb-4">Thân nhân vui lòng đọc kỹ các quy định dưới đây trước khi tiến hành khai báo.</p>
@@ -47,10 +48,12 @@
                 </button>
             </div>
 
+            <!-- MÀN HÌNH 1: FORM KHAI BÁO -->
             <div id="form-screen">
                 <h2 class="text-xl font-bold text-slate-800 mb-1 text-center">Khai Báo Thông Tin</h2>
                 <p class="text-xs text-slate-500 text-center mb-3">Hệ thống tự động đối chiếu thông tin và cấp số thứ tự vào thăm gặp.</p>
                 
+                <!-- NÚT XEM QUY ĐỊNH -->
                 <div class="mb-5 text-center">
                     <button onclick="showRegulations()" class="text-xs text-indigo-600 font-bold hover:underline inline-flex items-center justify-center gap-1.5 bg-indigo-50 px-4 py-2 rounded-xl border border-indigo-100 shadow-sm transition-all hover:bg-indigo-100">
                         <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
@@ -59,6 +62,7 @@
                 </div>
                 
                 <div class="space-y-4">
+                    <!-- KHỐI 1: THÔNG TIN NGƯỜI ĐI THĂM -->
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
                         <p class="text-xs font-black text-indigo-700 uppercase tracking-wider mb-1">I. Thông tin người đi thăm</p>
                         
@@ -102,6 +106,7 @@
                         </div>
                     </div>
 
+                    <!-- KHỐI 2: THÔNG TIN PHẠM NHÂN -->
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
                         <p class="text-xs font-black text-indigo-700 uppercase tracking-wider mb-1">II. Thông tin người muốn thăm gặp</p>
                         
@@ -137,6 +142,7 @@
                 </div>
             </div>
 
+            <!-- MÀN HÌNH 2: VÉ ĐIỆN TỬ -->
             <div id="ticket-screen" class="hidden">
                 <div class="text-center mb-4">
                     <span class="bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full">Đăng ký thành công & Thông tin hợp lệ</span>
@@ -189,7 +195,9 @@
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwKUBz8KY_-i2TUlBGUrdknufiIqa71pGC4cSJb5As8GxhzyzAXhJ8qLd4OOSdWzI991A/exec";
 
         let ticketData = {};
-        const textOnlyRegex = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểิếệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ\s]+$/;
+        
+        // SỬA LỖI TẠI ĐÂY: Sử dụng Unicode Property Escapes để nhận diện toàn bộ chữ Tiếng Việt chuẩn xác
+        const textOnlyRegex = /^[\p{L}\s]+$/u;
 
         // Hàm kiểm tra tính logic của ngày sinh (đđ/mm/yyyy), năm từ 1900 đến 2026
         function isValidDate(dateStr) {
