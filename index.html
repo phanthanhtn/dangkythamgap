@@ -177,14 +177,14 @@
     <footer class="bg-slate-800 text-slate-400 text-center py-3 text-xs">Trại Tạm Giam Số 1 &copy; 2026</footer>
 
     <script>
-        // ⚠️ BƯỚC QUAN TRỌNG: Hãy xóa dòng chữ tiếng Việt bên dưới và dán link Apps Script của bạn vào đây
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw7acjzZIN5-l0Jshnx7ttmB1q7bWFyik97GEwe8ulKzM2Mm3FoOqoEQcQWMz0bilQZ/exec";
+        // ⚠️ BƯỚC QUAN TRỌNG: Hãy xóa dòng chữ tiếng Việt bên dưới và dán link Web App từ Apps Script của bạn vào đây
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz-qzPfeYpmy_je9Xj1wP7xzst9I-BjeOGHXlxpnydUJca6o8vI4sEkqMXTc59we6hs/exec";
 
         let ticketData = {};
         let allPrisoners = []; 
         const textOnlyRegex = /^[\p{L}\s]+$/u;
 
-        // Tự động cấu hình mặt nạ điền ngày sinh dạng dd-mm-yyyy (Yêu cầu số 3)
+        // Tự động thêm dấu gạch ngang khi người dân nhập ngày sinh (Yêu cầu số 3)
         function setupDateMask(id) {
             const input = document.getElementById(id);
             input.addEventListener('input', function(e) {
@@ -205,7 +205,7 @@
         setupDateMask('visitor-dob');
         setupDateMask('prisoner-dob');
 
-        // Hàm kiểm tra tính hợp lệ và tự động lọc Mối quan hệ dựa theo Giới tính (Yêu cầu số 1)
+        // Logic đồng bộ mối quan hệ theo giới tính của Việt Nam (Yêu cầu số 1)
         function updateRelationshipOptions() {
             const gender = document.getElementById('gender').value;
             const relSelect = document.getElementById('relationship');
@@ -301,12 +301,12 @@
                     allPrisoners = data;
                     renderPrisonerTable(allPrisoners);
                 } else {
-                    container.innerHTML = `<p class="text-center text-red-500 p-4">❌ Lỗi cấu trúc dữ liệu.</p>`;
+                    container.innerHTML = `<p class="text-center text-red-500 p-4">❌ Lỗi cấu trúc dữ liệu hệ thống.</p>`;
                 }
             })
             .catch(err => {
                 loadingDiv.classList.add('hidden');
-                container.innerHTML = `<p class="text-center text-red-500 p-4">❌ Không kết nối được với Google Sheets.</p>`;
+                container.innerHTML = `<p class="text-center text-red-500 p-4">❌ Không kết nối được với dữ liệu Google Sheets.</p>`;
             });
         }
 
@@ -379,7 +379,7 @@
                 return;
             }
             if (!textOnlyRegex.test(name) || !textOnlyRegex.test(prisonerName)) {
-                showMessage("⚠️ Họ và tên phải là ký tự chữ!");
+                showMessage("⚠️ Họ và tên phải là ký tự chữ bản tiếng Việt!");
                 return;
             }
             if (!/^\d{12}$/.test(cccd)) {
@@ -405,7 +405,7 @@
                     document.getElementById('status-msg').classList.add('hidden');
                     ticketData = { name, gender, visitorDob, relationship, cccd, phone, prisonerName, prisonerDob, date, stt: data.stt };
 
-                    document.getElementById('res-stt').innerText = data.stt; // Luôn hiển thị dạng 001 từ Server
+                    document.getElementById('res-stt').innerText = data.stt; 
                     document.getElementById('res-name').innerText = name;
                     document.getElementById('res-gender').innerText = gender;
                     document.getElementById('res-dob').innerText = visitorDob;
@@ -422,16 +422,16 @@
                     document.getElementById('form-screen').classList.add('hidden');
                     document.getElementById('ticket-screen').classList.remove('hidden');
                 } else if (data.result === "not_found") {
-                    showMessage("❌ Hệ thống không tìm thấy người này trong danh sách quản lý!", "error");
+                    showMessage("❌ Hệ thống không tìm thấy người này trong danh sách quản lý đợt thăm này!", "error");
                 } else if (data.result === "disciplined") {
-                    showMessage("⛔ Phạm nhân đang bị kỷ luật. Hệ thống từ chối cấp số vào gặp đợt này!", "warning");
+                    showMessage("⛔ Phạm nhân hiện đang bị kỷ luật. Hệ thống từ chối cấp số vào gặp đợt này!", "warning");
                 } else {
                     showMessage("❌ Lỗi hệ thống: " + data.error, "error");
                 }
             })
             .catch(err => {
                 btnSubmit.disabled = false;
-                showMessage("❌ Lỗi kết nối mạng đến Google Drive.", "error");
+                showMessage("❌ Lỗi kết nối mạng đến máy chủ Google Drive.", "error");
             });
         }
 
