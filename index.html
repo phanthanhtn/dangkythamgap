@@ -34,7 +34,7 @@
                     <div>
                         <p class="font-black text-slate-800 uppercase text-[11px] text-indigo-600">3. Trường hợp can phạm nhân đang bị kỷ luật</p>
                         <p class="mt-0.5">- Theo quy định nghiệp vụ, đối với các trường hợp can phạm nhân đang trong thời gian chấp hành quyết định kỷ luật, hệ thống sẽ **TỰ ĐỘNG TỪ CHỐI** cấp số thứ tự vào gặp trực tiếp.</p>
-                        <p class="mt-0.5">- Thân nhân trong trường hợp này chỉ được phép gửi quà lưu ký theo sự hướng dẫn của cán bộ trực ban.</p>
+                        <p class="mt-0.5">- Thân nhân trong trường hợp này cũng không được gửi quà lưu ký.</p>
                     </div>
                     <div>
                         <p class="font-black text-slate-800 uppercase text-[11px] text-indigo-600">4. Trách nhiệm của thân nhân</p>
@@ -407,7 +407,7 @@
                 } else if (data.result === "not_found") {
                     showMessage("❌ Hệ thống đối chiếu không tìm thấy người này trong Trại Tạm Giam!", "error");
                 } else if (data.result === "disciplined") {
-                    showMessage("⛔ Phạm nhân đang chịu hình thức kỷ luật. Chỉ được phép gửi quà lưu ký, không cấp số thứ tự vào gặp đợt này!", "warning");
+                    showMessage("⛔ Phạm nhân đang chịu hình thức kỷ luật. Không được phép thăm gặp. Không được nhận quà lưu ký, không cấp số thứ tự vào gặp đợt này!", "warning");
                 } else {
                     showMessage("❌ Lỗi cấu hình: " + data.error, "error");
                 }
