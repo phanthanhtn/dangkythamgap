@@ -19,90 +19,62 @@
 
             <div id="regulations-screen" class="hidden">
                 <h2 class="text-xl font-bold text-slate-800 mb-2 text-center text-indigo-700">Quy Định Thăm Gặp Can Phạm Nhân</h2>
-                <p class="text-xs text-slate-500 text-center mb-4">Thân nhân vui lòng đọc kỹ các quy định dưới đây trước khi tiến hành khai báo.</p>
-                
                 <div class="text-xs text-slate-600 space-y-3 max-h-96 overflow-y-auto p-4 bg-slate-50 rounded-xl border border-slate-200 leading-relaxed">
                     <div>
                         <p class="font-black text-slate-800 uppercase text-[11px] text-indigo-600">1. Đối tượng được phép thăm gặp</p>
-                        <p class="mt-0.5">Chỉ giải quyết các trường hợp thăm gặp là thân nhân thân thiết bao gồm: **Cha, mẹ, anh ruột, chị ruột, em ruột, con ruột, ông nội, bà nội, ông ngoại, bà ngoại**.</p>
+                        <p class="mt-0.5">Chỉ giải quyết các trường hợp thăm gặp là thân nhân tuân thủ đúng logic giới tính và quan hệ được pháp luật quy định.</p>
                     </div>
                     <div>
                         <p class="font-black text-slate-800 uppercase text-[11px] text-indigo-600">2. Thủ tục kiểm tra tại cổng gác</p>
-                        <p class="mt-0.5">- Thân nhân phải xuất trình bản gốc Căn cước công dân (12 số) trùng khớp hoàn toàn với thông tin khai báo trên hệ thống.</p>
-                        <p class="mt-0.5">- Xuất trình ảnh Vé điện tử có mã QR và Số thứ tự hợp lệ được hệ thống cấp sau khi khai báo thành công.</p>
-                    </div>
-                    <div>
-                        <p class="font-black text-slate-800 uppercase text-[11px] text-indigo-600">3. Trường hợp can phạm nhân đang bị kỷ luật</p>
-                        <p class="mt-0.5">- Theo quy định nghiệp vụ, đối với các trường hợp can phạm nhân đang trong thời gian chấp hành quyết định kỷ luật, hệ thống sẽ **TỰ ĐỘNG TỪ CHỐI** cấp số thứ tự vào gặp trực tiếp.</p>
-                        <p class="mt-0.5">- Thân nhân trong trường hợp này cũng không được gửi quà lưu ký.</p>
-                    </div>
-                    <div>
-                        <p class="font-black text-slate-800 uppercase text-[11px] text-indigo-600">4. Trách nhiệm của thân nhân</p>
-                        <p class="mt-0.5">Khai báo trung thực, chính xác thông tin căn tính. Ăn mặc trang phục lịch sự, nghiêm túc và chấp hành tuyệt đối sự điều phối của lực lượng làm nhiệm vụ tại Trại Tạm Giam.</p>
+                        <p class="mt-0.5">- Thân nhân phải xuất trình bản gốc Căn cước công dân và Ảnh Vé điện tử có mã QR chứa Số thứ tự hợp lệ.</p>
                     </div>
                 </div>
-                
                 <button onclick="hideRegulations()" class="w-full mt-5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-4 rounded-xl text-sm shadow transition-all">
-                    Tôi Đã Hiểu - Quay Lại Trang Đăng Ký
+                    Tôi Đã Hiểu - Quay Lại
                 </button>
             </div>
 
             <div id="prisoner-list-screen" class="hidden">
                 <h2 class="text-xl font-bold text-slate-800 mb-1 text-center text-emerald-700">Danh Sách Người Được Thăm Gặp</h2>
-                <p class="text-xs text-slate-500 text-center mb-4">Dữ liệu công khai đồng bộ trực tiếp từ danh sách quản lý của Trại Tạm Giam.</p>
-                
                 <div class="mb-3">
                     <input type="text" id="search-prisoner" oninput="filterPrisonerList()" placeholder="🔍 Nhập tên hoặc ngày sinh để tìm nhanh..." class="w-full border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-emerald-600 font-medium">
                 </div>
-
-                <div id="prisoner-list-loading" class="text-center py-8 text-xs text-slate-500 font-semibold hidden animate-pulse">
-                    ⏳ Đang kết nối dữ liệu Google Sheets, vui lòng đợi...
-                </div>
-
-                <div id="prisoner-list-container" class="text-xs text-slate-600 max-h-80 overflow-y-auto bg-slate-50 rounded-xl border border-slate-200">
-                    </div>
-                
-                <button onclick="hidePrisonerList()" class="w-full mt-5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl text-sm shadow transition-all">
-                    Quay Lại Trang Đăng Ký
-                </button>
+                <div id="prisoner-list-loading" class="text-center py-8 text-xs text-slate-500 font-semibold hidden animate-pulse">⏳ Đang kết nối dữ liệu Google Sheets...</div>
+                <div id="prisoner-list-container" class="text-xs text-slate-600 max-h-80 overflow-y-auto bg-slate-50 rounded-xl border border-slate-200"></div>
+                <button onclick="hidePrisonerList()" class="w-full mt-5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl text-sm shadow transition-all">Quay Lại</button>
             </div>
 
             <div id="form-screen">
                 <h2 class="text-xl font-bold text-slate-800 mb-1 text-center">Khai Báo Thông Tin</h2>
-                <p class="text-xs text-slate-500 text-center mb-3">Hệ thống tự động đối chiếu thông tin và cấp số thứ tự vào thăm gặp.</p>
+                <p class="text-xs text-slate-500 text-center mb-3">Hệ thống tự động đối chiếu thông tin và cấp số thứ tự.</p>
                 
                 <div class="mb-5 flex flex-col sm:flex-row gap-2 justify-center items-center">
-                    <button onclick="showRegulations()" class="text-xs text-indigo-600 font-bold hover:underline inline-flex items-center justify-center gap-1.5 bg-indigo-50 px-3 py-2 rounded-xl border border-indigo-100 shadow-sm transition-all hover:bg-indigo-100 w-full sm:w-1/2">
-                        Nội Quy Quy Định
-                    </button>
-                    <button onclick="showPrisonerList()" class="text-xs text-emerald-600 font-bold hover:underline inline-flex items-center justify-center gap-1.5 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-100 shadow-sm transition-all hover:bg-emerald-100 w-full sm:w-1/2">
-                        Danh Sách Người Được Gặp
-                    </button>
+                    <button onclick="showRegulations()" class="text-xs text-indigo-600 font-bold hover:underline bg-indigo-50 px-3 py-2 rounded-xl border border-indigo-100 shadow-sm w-full sm:w-1/2">Nội Quy Quy Định</button>
+                    <button onclick="showPrisonerList()" class="text-xs text-emerald-600 font-bold hover:underline bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-100 shadow-sm w-full sm:w-1/2">Danh Sách Người Được Gặp</button>
                 </div>
                 
                 <div class="space-y-4">
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
                         <p class="text-xs font-black text-indigo-700 uppercase tracking-wider mb-1">I. Thông tin người đi thăm</p>
                         
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase">Họ và tên <span class="text-red-500">*</span></label>
+                            <input type="text" id="fullname" placeholder="Nhập đầy đủ họ tên" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium">
+                        </div>
+
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase">Họ và tên <span class="text-red-500">*</span></label>
-                                <input type="text" id="fullname" placeholder="Nhập chữ" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium">
+                                <label class="block text-xs font-bold text-slate-700 uppercase">Giới tính <span class="text-red-500">*</span></label>
+                                <select id="gender" onchange="updateRelationshipOptions()" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium bg-white">
+                                    <option value="">-- Chọn --</option>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                </select>
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 uppercase">Mối quan hệ <span class="text-red-500">*</span></label>
-                                <select id="relationship" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium bg-white">
-                                    <option value="">-- Chọn quan hệ --</option>
-                                    <option value="Cha">Cha</option>
-                                    <option value="Mẹ">Mẹ</option>
-                                    <option value="Anh ruột">Anh ruột</option>
-                                    <option value="Chị ruột">Chị ruột</option>
-                                    <option value="Em ruột">Em ruột</option>
-                                    <option value="Con ruột">Con ruột</option>
-                                    <option value="Ông nội">Ông nội</option>
-                                    <option value="Bà nội">Bà nội</option>
-                                    <option value="Ông ngoại">Ông ngoại</option>
-                                    <option value="Bà ngoại">Bà ngoại</option>
+                                <select id="relationship" disabled class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium bg-slate-100 cursor-not-allowed">
+                                    <option value="">-- Chọn giới tính trước --</option>
                                 </select>
                             </div>
                         </div>
@@ -110,7 +82,7 @@
                         <div class="grid grid-cols-2 gap-3">
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 uppercase">Ngày sinh <span class="text-red-500">*</span></label>
-                                <input type="text" id="visitor-dob" placeholder="đđ/mm/yyyy" maxlength="10" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium">
+                                <input type="text" id="visitor-dob" placeholder="dd-mm-yyyy" maxlength="10" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 uppercase">Số CCCD (12 số) <span class="text-red-500">*</span></label>
@@ -130,17 +102,17 @@
                         <div class="grid grid-cols-2 gap-3">
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 uppercase">Họ và tên <span class="text-red-500">*</span></label>
-                                <input type="text" id="prisoner-name" placeholder="Chỉ nhập chữ" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium">
+                                <input type="text" id="prisoner-name" placeholder="Họ tên phạm nhân" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 uppercase">Ngày sinh <span class="text-red-500">*</span></label>
-                                <input type="text" id="prisoner-dob" placeholder="đđ/mm/yyyy" maxlength="10" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium bg-white">
+                                <input type="text" id="prisoner-dob" placeholder="dd-mm-yyyy" maxlength="10" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium bg-white">
                             </div>
                         </div>
 
                         <div>
                             <label class="block text-xs font-bold text-slate-700 uppercase">Hộ khẩu thường trú <span class="text-red-500">*</span></label>
-                            <input type="text" id="prisoner-address" placeholder="Nhập chính xác theo hộ khẩu để đối chiếu" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium">
+                            <input type="text" id="prisoner-address" placeholder="Nhập chính xác theo hộ khẩu" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium">
                         </div>
                     </div>
 
@@ -148,7 +120,7 @@
                         <div>
                             <label class="block text-xs font-bold text-slate-700 uppercase">Ngày hẹn gặp đợt này</label>
                             <select id="visit-date" class="w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-600 text-sm font-bold bg-slate-100 cursor-not-allowed">
-                                <option value="30/06/2026">30/06/2026 (Ngày Thăm Gặp Do Cán Bộ Quy Định)</option>
+                                <option value="30/06/2026">30/06/2026 (Ngày Thăm Gặp Quy Định)</option>
                             </select>
                         </div>
                     </div>
@@ -174,6 +146,7 @@
 
                     <div class="pt-4 space-y-2 text-xs text-slate-600 border-t border-indigo-100">
                         <div><strong>Họ tên người thăm:</strong> <span id="res-name" class="text-slate-900 font-medium"></span></div>
+                        <div><strong>Giới tính:</strong> <span id="res-gender" class="text-slate-900"></span></div>
                         <div><strong>Ngày sinh người thăm:</strong> <span id="res-dob" class="text-slate-900"></span></div>
                         <div><strong>Mối quan hệ:</strong> <span id="res-rel" class="text-indigo-700 font-bold"></span></div>
                         <div><strong>Số CCCD người thăm:</strong> <span id="res-cccd" class="text-slate-900"></span></div>
@@ -201,23 +174,68 @@
     </main>
 
     <canvas id="hidden-canvas" class="hidden"></canvas>
-
-    <footer class="bg-slate-800 text-slate-400 text-center py-3 text-xs">
-        Trại Tạm Giam Số 1 &copy; 2026
-    </footer>
+    <footer class="bg-slate-800 text-slate-400 text-center py-3 text-xs">Trại Tạm Giam Số 1 &copy; 2026</footer>
 
     <script>
-        // ⚠️ BƯỚC QUAN TRỌNG: Hãy xóa chuỗi chữ bên dưới và dán liên kết URL Web App của bạn ở Bước 2 vào đây
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwed1cbDAi6RVpToHU_GTO0M_5-7I8iT794P6BYK4NcRzAH0X18EE8hSoFg3ZR3imZZ/exec";
+        // ⚠️ BƯỚC QUAN TRỌNG: Hãy xóa dòng chữ tiếng Việt bên dưới và dán link Apps Script của bạn vào đây
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx3Vi0TqsOZFwHehqddMIGJ5sxDLhwjXT49fFvrHHJhJhpwE4Ie9Q0b6U1R7n5JxwwV/exec";
 
         let ticketData = {};
         let allPrisoners = []; 
         const textOnlyRegex = /^[\p{L}\s]+$/u;
 
+        // Tự động cấu hình mặt nạ điền ngày sinh dạng dd-mm-yyyy (Yêu cầu số 3)
+        function setupDateMask(id) {
+            const input = document.getElementById(id);
+            input.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                let formatted = '';
+                if (value.length > 0) {
+                    formatted += value.substr(0, 2);
+                    if (value.length > 2) {
+                        formatted += '-' + value.substr(2, 2);
+                        if (value.length > 4) {
+                            formatted += '-' + value.substr(4, 4);
+                        }
+                    }
+                }
+                e.target.value = formatted;
+            });
+        }
+        setupDateMask('visitor-dob');
+        setupDateMask('prisoner-dob');
+
+        // Hàm kiểm tra tính hợp lệ và tự động lọc Mối quan hệ dựa theo Giới tính (Yêu cầu số 1)
+        function updateRelationshipOptions() {
+            const gender = document.getElementById('gender').value;
+            const relSelect = document.getElementById('relationship');
+            
+            relSelect.innerHTML = '<option value="">-- Chọn quan hệ --</option>';
+            
+            if (gender === 'Nam') {
+                const maleOptions = ["Cha", "Anh ruột", "Em ruột", "Con ruột", "Ông nội", "Ông ngoại"];
+                maleOptions.forEach(opt => {
+                    relSelect.innerHTML += `<option value="${opt}">${opt}</option>`;
+                });
+                relSelect.disabled = false;
+                relSelect.className = "w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium bg-white";
+            } else if (gender === 'Nữ') {
+                const femaleOptions = ["Mẹ", "Chị ruột", "Em ruột", "Con ruột", "Bà nội", "Bà ngoại"];
+                femaleOptions.forEach(opt => {
+                    relSelect.innerHTML += `<option value="${opt}">${opt}</option>`;
+                });
+                relSelect.disabled = false;
+                relSelect.className = "w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium bg-white";
+            } else {
+                relSelect.disabled = true;
+                relSelect.className = "w-full mt-1 border border-slate-300 rounded-xl py-2 px-3 text-slate-800 text-sm focus:outline-none focus:border-indigo-600 font-medium bg-slate-100 cursor-not-allowed";
+            }
+        }
+
         function isValidDate(dateStr) {
-            const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+            const regex = /^(\d{2})-(\d{2})-(\d{4})$/;
             if (!regex.test(dateStr)) return false;
-            const parts = dateStr.split('/');
+            const parts = dateStr.split('-');
             const day = parseInt(parts[0], 10);
             const month = parseInt(parts[1], 10);
             const year = parseInt(parts[2], 10);
@@ -255,15 +273,13 @@
 
         function showPrisonerList() {
             if (SCRIPT_URL.includes("DÁN_ĐƯỜNG_LINK")) {
-                showMessage("⚠️ Bạn chưa dán đường link Google Apps Script vào file mã nguồn (dòng 168)!");
+                showMessage("⚠️ Bạn chưa dán đường link Google Apps Script vào file mã nguồn (dòng 173)!");
                 return;
             }
             document.getElementById('form-screen').classList.add('hidden');
             document.getElementById('prisoner-list-screen').classList.remove('hidden');
             document.getElementById('status-msg').classList.add('hidden');
-            if (allPrisoners.length === 0) {
-                fetchPrisonerList();
-            }
+            if (allPrisoners.length === 0) fetchPrisonerList();
         }
 
         function hidePrisonerList() {
@@ -285,13 +301,12 @@
                     allPrisoners = data;
                     renderPrisonerTable(allPrisoners);
                 } else {
-                    container.innerHTML = `<p class="text-center text-red-500 p-4">❌ Lỗi cấu trúc dữ liệu từ máy chủ.</p>`;
+                    container.innerHTML = `<p class="text-center text-red-500 p-4">❌ Lỗi cấu trúc dữ liệu.</p>`;
                 }
             })
             .catch(err => {
                 loadingDiv.classList.add('hidden');
-                container.innerHTML = `<p class="text-center text-red-500 p-4">❌ Lỗi đường truyền không thể tải dữ liệu.</p>`;
-                console.error(err);
+                container.innerHTML = `<p class="text-center text-red-500 p-4">❌ Không kết nối được với Google Sheets.</p>`;
             });
         }
 
@@ -338,11 +353,12 @@
 
         function generateTicket() {
             if (SCRIPT_URL.includes("DÁN_ĐƯỜNG_LINK")) {
-                showMessage("⚠️ Bạn chưa cấu hình đường dẫn SCRIPT_URL tại dòng 168!");
+                showMessage("⚠️ Bạn chưa cấu hình đường dẫn SCRIPT_URL!");
                 return;
             }
 
             const name = document.getElementById('fullname').value.trim();
+            const gender = document.getElementById('gender').value;
             const relationship = document.getElementById('relationship').value;
             const visitorDob = document.getElementById('visitor-dob').value.trim();
             const cccd = document.getElementById('cccd').value.trim();
@@ -354,12 +370,12 @@
             
             document.getElementById('status-msg').classList.add('hidden');
 
-            if (!name || !relationship || !visitorDob || !cccd || !phone || !prisonerName || !prisonerDob || !prisonerAddress) {
-                showMessage("⚠️ Vui lòng khai báo đầy đủ tất cả các trường thông tin có dấu (*)");
+            if (!name || !gender || !relationship || !visitorDob || !cccd || !phone || !prisonerName || !prisonerDob || !prisonerAddress) {
+                showMessage("⚠️ Vui lòng khai báo đầy đủ tất cả các thông tin có dấu (*)");
                 return;
             }
             if (!isValidDate(visitorDob) || !isValidDate(prisonerDob)) {
-                showMessage("⚠️ Ngày sinh không đúng định dạng đđ/mm/yyyy (Ví dụ: 15/08/1990)!");
+                showMessage("⚠️ Ngày sinh phải nhập đủ và đúng định dạng dd-mm-yyyy!");
                 return;
             }
             if (!textOnlyRegex.test(name) || !textOnlyRegex.test(prisonerName)) {
@@ -371,15 +387,15 @@
                 return;
             }
             if (!/^(03|05|07|08|09)\d{8}$/.test(phone.replace(/\s+/g, ''))) {
-                showMessage("⚠️ Số điện thoại không đúng định dạng Việt Nam!");
+                showMessage("⚠️ Số điện thoại không đúng định dạng!");
                 return;
             }
 
             const btnSubmit = document.getElementById('btn-submit');
             btnSubmit.disabled = true;
-            showMessage("⏳ Đang kết nối dữ liệu máy chủ kiểm tra, vui lòng đợi...", "info");
+            showMessage("⏳ Đang kiểm tra đối chiếu dữ liệu, vui lòng đợi...", "info");
 
-            const finalUrl = `${SCRIPT_URL}?name=${encodeURIComponent(name)}&visitorDob=${encodeURIComponent(visitorDob)}&cccd=${encodeURIComponent(cccd)}&phone=${encodeURIComponent(phone)}&relationship=${encodeURIComponent(relationship)}&prisonerName=${encodeURIComponent(prisonerName)}&prisonerDob=${encodeURIComponent(prisonerDob)}&prisonerAddress=${encodeURIComponent(prisonerAddress)}&date=${encodeURIComponent(date)}`;
+            const finalUrl = `${SCRIPT_URL}?name=${encodeURIComponent(name)}&gender=${encodeURIComponent(gender)}&visitorDob=${encodeURIComponent(visitorDob)}&cccd=${encodeURIComponent(cccd)}&phone=${encodeURIComponent(phone)}&relationship=${encodeURIComponent(relationship)}&prisonerName=${encodeURIComponent(prisonerName)}&prisonerDob=${encodeURIComponent(prisonerDob)}&prisonerAddress=${encodeURIComponent(prisonerAddress)}&date=${encodeURIComponent(date)}`;
 
             fetch(finalUrl)
             .then(response => response.json())
@@ -387,10 +403,11 @@
                 btnSubmit.disabled = false;
                 if (data.result === "success") {
                     document.getElementById('status-msg').classList.add('hidden');
-                    ticketData = { name, visitorDob, relationship, cccd, phone, prisonerName, prisonerDob, date, stt: data.stt };
+                    ticketData = { name, gender, visitorDob, relationship, cccd, phone, prisonerName, prisonerDob, date, stt: data.stt };
 
-                    document.getElementById('res-stt').innerText = String(data.stt).padStart(3, '0'); 
+                    document.getElementById('res-stt').innerText = data.stt; // Luôn hiển thị dạng 001 từ Server
                     document.getElementById('res-name').innerText = name;
+                    document.getElementById('res-gender').innerText = gender;
                     document.getElementById('res-dob').innerText = visitorDob;
                     document.getElementById('res-rel').innerText = relationship;
                     document.getElementById('res-cccd').innerText = cccd;
@@ -399,41 +416,41 @@
                     document.getElementById('res-pris-dob').innerText = prisonerDob;
                     document.getElementById('res-date').innerText = date;
 
-                    const qrText = `STT:${data.stt}|CCCD:${cccd}|CONG_DANH_ANH:${prisonerName}`;
+                    const qrText = `STT:${data.stt}|CCCD:${cccd}|PHAMINHAN:${prisonerName}`;
                     document.getElementById('ticket-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrText)}`;
 
                     document.getElementById('form-screen').classList.add('hidden');
                     document.getElementById('ticket-screen').classList.remove('hidden');
                 } else if (data.result === "not_found") {
-                    showMessage("❌ Hệ thống đối chiếu không tìm thấy người này trong Trại Tạm Giam!", "error");
+                    showMessage("❌ Hệ thống không tìm thấy người này trong danh sách quản lý!", "error");
                 } else if (data.result === "disciplined") {
-                    showMessage("⛔ Phạm nhân đang chịu hình thức kỷ luật. Không được phép thăm gặp. Không được nhận quà lưu ký, không cấp số thứ tự vào gặp đợt này!", "warning");
+                    showMessage("⛔ Phạm nhân đang bị kỷ luật. Hệ thống từ chối cấp số vào gặp đợt này!", "warning");
                 } else {
-                    showMessage("❌ Lỗi cấu hình: " + data.error, "error");
+                    showMessage("❌ Lỗi hệ thống: " + data.error, "error");
                 }
             })
             .catch(err => {
                 btnSubmit.disabled = false;
-                showMessage("❌ Lỗi kết nối mạng đến Google Drive. Hãy thử lại.", "error");
-                console.error(err);
+                showMessage("❌ Lỗi kết nối mạng đến Google Drive.", "error");
             });
         }
 
         function downloadTicketImage() {
             const canvas = document.getElementById('hidden-canvas');
-            canvas.width = 420; canvas.height = 580;
+            canvas.width = 420; canvas.height = 600;
             const ctx = canvas.getContext('2d');
             ctx.fillStyle = '#f8fafc'; ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = '#e0e7ff'; ctx.fillRect(0, 0, canvas.width, 120);
             ctx.strokeStyle = '#4338ca'; ctx.lineWidth = 6; ctx.strokeRect(3, 3, canvas.width - 6, canvas.height - 6);
             ctx.fillStyle = '#4338ca'; ctx.font = 'bold 14px Arial'; ctx.textAlign = 'center';
             ctx.fillText('SỐ THỨ TỰ VÀO THĂM GẶP', 210, 40);
-            ctx.font = 'bold 50px Arial'; ctx.fillText(String(ticketData.stt).padStart(3, '0'), 210, 95);
+            ctx.font = 'bold 50px Arial'; ctx.fillText(ticketData.stt, 210, 95);
             ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 2; ctx.setLineDash([6, 6]);
             ctx.beginPath(); ctx.moveTo(10, 135); ctx.lineTo(410, 135); ctx.stroke(); ctx.setLineDash([]);
             ctx.fillStyle = '#334155'; ctx.font = 'bold 12px Arial'; ctx.textAlign = 'left';
             let cY = 175;
             ctx.fillText(`Họ tên người thăm: ${ticketData.name}`, 40, cY); cY += 28;
+            ctx.fillText(`Giới tính: ${ticketData.gender}`, 40, cY); cY += 28;
             ctx.fillText(`Ngày sinh người thăm: ${ticketData.visitorDob}`, 40, cY); cY += 28;
             ctx.fillText(`Mối quan hệ: ${ticketData.relationship}`, 40, cY); cY += 28;
             ctx.fillText(`Số CCCD: ${ticketData.cccd}`, 40, cY); cY += 28;
@@ -443,23 +460,23 @@
             ctx.fillText(`Ngày sinh: ${ticketData.prisonerDob}`, 40, cY); cY += 28;
             ctx.fillStyle = '#dc2626'; ctx.fillText(`Ngày hẹn gặp: ${ticketData.date}`, 40, cY);
             ctx.fillStyle = '#94a3b8'; ctx.font = 'italic 10px Arial'; ctx.textAlign = 'center';
-            ctx.fillText('Hệ thống Trại Tạm Giam Số 1 đã phê duyệt dữ liệu.', 210, 520);
-            ctx.fillText('Vui lòng trình ảnh vé này tại cổng gác.', 210, 540);
+            ctx.fillText('Hệ thống Trại Tạm Giam Số 1 phê duyệt tự động.', 210, 550);
             const img = canvas.toDataURL("image/png");
             const dl = document.createElement('a'); dl.href = img;
-            dl.download = `STT_TRAITAMGIAM_${ticketData.stt}.png`;
+            dl.download = `VE_STT_${ticketData.stt}.png`;
             document.body.appendChild(dl); dl.click(); document.body.removeChild(dl);
         }
 
         function backToForm() {
             document.getElementById('fullname').value = "";
+            document.getElementById('gender').value = "";
             document.getElementById('visitor-dob').value = "";
             document.getElementById('cccd').value = "";
             document.getElementById('phone').value = "";
             document.getElementById('prisoner-name').value = "";
             document.getElementById('prisoner-dob').value = "";
             document.getElementById('prisoner-address').value = "";
-            document.getElementById('relationship').value = "";
+            updateRelationshipOptions();
             document.getElementById('status-msg').classList.add('hidden');
             document.getElementById('form-screen').classList.remove('hidden');
             document.getElementById('ticket-screen').classList.add('hidden');
